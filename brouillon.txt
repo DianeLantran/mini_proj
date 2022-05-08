@@ -1,0 +1,116 @@
+// affichage de la grille
+void drawgrid(sf::RenderWindow& window) {
+	std::vector<sf::RectangleShape> lines;
+
+	// lignes verticales
+	lines.push_back(sf::RectangleShape(sf::Vector2f(6, 300)));
+	lines.push_back(sf::RectangleShape(sf::Vector2f(6, 300)));
+	// lignes horizontalesH
+	lines.push_back(sf::RectangleShape(sf::Vector2f(300, 6)));
+	lines.push_back(sf::RectangleShape(sf::Vector2f(300, 6)));
+
+	// positionnement des lignes
+	lines[0].setPosition(97, 0);
+	lines[1].setPosition(197, 0);
+	lines[2].setPosition(0, 97);
+	lines[3].setPosition(0, 197);
+
+	// lignes de couleurs noires
+	for (size_t i = 0; i < lines.size(); i++)
+		lines[i].setFillColor(sf::Color::Black);
+
+	// affichage
+	for (size_t i = 0; i < lines.size(); i++)
+		window.draw(lines[i]);
+}
+
+
+
+int main()
+{
+
+	// création de la fenêtre
+	sf::RenderWindow window(sf::VideoMode(300, 300), "jeu de morpion");
+
+	// tableau de jeu
+	int tab[3][3];
+
+	for (size_t i = 0; i < 3; i++)
+		for (size_t j = 0; j < 3; j++)
+			tab[i][j] = 0;
+
+	//// indique le tour du joueur rouge
+	//bool redturn = true;
+
+	// compte le nombre de cases vide
+	int nbleft = 9;
+
+
+	// boucle principale
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			// demande de fermeture de la fenêtre
+			if (event.type == sf::Event::Closed)
+				window.close();
+
+			// appui sur le bouton gauche
+			if ((event.type == sf::Event::MouseButtonPressed)
+				&& (event.mouseButton.button == sf::Mouse::Left)) {
+				// si on a plus de place, on vide le tableau
+				if (nbleft == 0) {
+					for (size_t i = 0; i < 3; i++)
+						for (size_t j = 0; j < 3; j++)
+							tab[i][j] = 0;
+					nbleft = 9;
+				}
+				// sinon, on place notre jeton
+				else {
+					// position de la souris dans par rapport à la fenêtre
+					sf::Vector2i localposition = sf::Mouse::getPosition(window);
+
+					// position de la souris dans le tableau
+					localposition /= 100;
+
+					// affichage console des coordonées
+					std::cout << localposition.x << " " << localposition.y << std::endl;
+
+					// si on tombe sur une case vide
+					if (tab[localposition.x][localposition.y] == 0) {
+						// on remplit en fonction du tour du joueur (1 pour rouge, 2 pour bleu)
+						//tab[localposition.x][localposition.y] = redturn ? 1 : 2;
+						//// on change de joueur
+						//redturn = !redturn;
+						// on met a jour le nombre de cases vides
+						nbleft--;
+					}
+				}
+			}
+
+		}
+
+		// on efface la fenêtre (en blanc)
+		window.clear(sf::Color::White);
+
+		// on affiche la grille
+		drawgrid(window);
+
+		// parcours du tableau
+		for (size_t i = 0; i < 3; i++) {
+			for (size_t j = 0; j < 3; j++) {
+
+				// affichage du jeton
+				if (tab[i][j] == 1)
+					drawcircle(window, i, j);
+				else if (tab[i][j] == 2)
+					drawcross(window, i, j);
+			}
+		}
+
+		// mise à jour de la fenêtre
+		window.display();
+	}
+
+	return 0;
+}
