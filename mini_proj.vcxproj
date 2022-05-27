@@ -146,15 +146,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dictionnaire.cpp" />
+    <ClCompile Include="historique.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="mot.cpp" />
     <ClCompile Include="grille.cpp" />
     <ClCompile Include="mini_proj.cpp" />
+    <ClCompile Include="partie.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dictionnaire.h" />
+    <ClInclude Include="historique.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="mot.h" />
     <ClInclude Include="grille.h" />
+    <ClInclude Include="partie.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

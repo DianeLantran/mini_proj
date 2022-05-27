@@ -43,7 +43,6 @@ Mot* motsFichiers(string fichier_txt, int nbMots) {
 	 //On lit le fichier .txt ligne par ligne
 	for (int i = 0; i < nbMots; i++) {
 		getline(fichier_mots, contenu); //la i eme ligne est lue, stockée dans "contenu" puis supprimée
-		//cout << i << "eme mot : " << contenu << endl;
 		mot.setContenu(contenu);
 		mot.setValide(true); //l'appartenance au dictionnaire definit le mot comme valide
 		tabMots[i] = mot;
@@ -62,15 +61,10 @@ int nbMotsFichier(string fichier_txt) {
 	}
 	return(i);
 	}
-//string& Mot::operator[](int i) {
-//	string& lettre = contenu_[i];
-//	return(&contenu_[i]);
-//}
-vector <int> Mot::lettresCommunes(Mot mot) {
+
+vector <int> Mot::lettresBienPlacees(Mot mot) {
 	vector <int> lettresCommunesBienPlacees = {}; //stocke les indices du mot proposés qui correspondent aux lettres bien placées
-	vector <int> lettresCommunesMalPlacees = {}; //stocke les indices du mot proposés qui correspondent aux lettres mal placées
 	int nbBienPlacees = 0;
-	int nbMalPlacees = 0;
 	string proposition = mot.getContenu();
 	string reference = contenu_;
 	if (proposition.size() != longueur_) {
@@ -80,22 +74,41 @@ vector <int> Mot::lettresCommunes(Mot mot) {
 	else {
 		for (int i = 0; i < longueur_; i++) {
 			if (reference[i] == proposition[i]) {
-				nbBienPlacees += 1;
-				lettresCommunesBienPlacees.resize(nbBienPlacees);
-				cout << proposition[i] << " est bien placee" << endl;
 				lettresCommunesBienPlacees.push_back(i);
 			}
-			else {
-				for (int j = 0; j < longueur_; j++) {
-					if (reference[j] == proposition[i]) {
-						nbMalPlacees += 1;
-						lettresCommunesMalPlacees.resize(nbMalPlacees);
-						cout << proposition[i] << " est mal placee" << endl;
-						lettresCommunesMalPlacees.push_back(i);
-					}
+		}
+	}
+	return(lettresCommunesBienPlacees);
+}
+
+vector <int> Mot::lettresMalPlacees(Mot mot) {
+	vector <int> lettresCommunesMalPlacees = {}; //stocke les indices du mot proposés qui correspondent aux lettres bien placées
+	string reference = contenu_;
+	vector <int> lettresCommunesBienPlacees = lettresBienPlacees(mot);
+	int nbMalPlacees = 0;
+	string proposition = mot.getContenu();
+
+
+	if (proposition.size() != longueur_) {
+		cout << "ERREUR : les mots a comparer n'ont pas la meme taille" << endl;
+		abort();
+	}
+	else {
+		for (int i = 0; i < longueur_; i++) { //parcours la proposition
+			for (int j = 0; j < longueur_; j++) { //parcours la reference
+				if ((reference[j] == proposition[i]) && (!estInclu(j, lettresCommunesBienPlacees))) {
+					lettresCommunesMalPlacees.push_back(i);
 				}
 			}
 		}
 	}
-	return(lettresCommunesBienPlacees, lettresCommunesMalPlacees);
+	return(lettresCommunesMalPlacees);
+}
+bool estInclu(int i, vector <int> v) {
+	for (int j = 0; j < v.size(); j++) {
+		if (v[j] == i) {
+			return(true);
+		}
+	}
+	return(false);
 }

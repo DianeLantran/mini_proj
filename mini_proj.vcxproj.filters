@@ -30,6 +30,15 @@
     <ClCompile Include="dictionnaire.cpp">
       <Filter>Fichiers de ressources\Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="partie.cpp">
+      <Filter>Fichiers de ressources\Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Fichiers de ressources\Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="historique.cpp">
+      <Filter>Fichiers de ressources\Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mot.h">
@@ -42,6 +51,15 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="dictionnaire.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="partie.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="historique.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
