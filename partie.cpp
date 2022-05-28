@@ -51,7 +51,7 @@ void Partie::jouer() {
 	cout << "le joueur doit deviner le mot : " << aDeviner_.getContenu() << endl;
 	int taille_grille = aDeviner_.getTaille();
 	Grille grille(taille_grille, 6); //on veut 6 essais possibles avant de perdre
-	sf::RenderWindow window(sf::VideoMode(taille_grille * 100, grille.getNbCasesV() * 100 + 50), "jeu de motus"); //taille de la fenêtre avec une marge de 50 pour mettre les messages d'erreur
+	sf::RenderWindow window(sf::VideoMode(taille_grille * 100, grille.getNbCasesV() * 100 + 50+300), "jeu de motus"); //taille de la fenêtre avec une marge de 50 pour mettre les messages d'erreur
 
 	//on stocke le contenu du mot entré dans la variable proposition
 	Mot proposition;
